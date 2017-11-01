@@ -1,32 +1,26 @@
-/**
+package Semaphores; /**
  * Created by jmobijoh on 10/19/17.
  */
 
 import java.util.concurrent.Semaphore;
 
-public class SemaphoreTest4 {
+public class SemaphoreTest5 {
 
     private Semaphore operationSemaphore = new Semaphore(5);
 
-    public void enqueue(int id) {
+    public synchronized void enqueue(int id) {
 
-        if(operationSemaphore.availablePermits() == 0) {
-            throw new RuntimeException();
-        }
-
-        try {
-            operationSemaphore.acquire();
+        if(operationSemaphore.tryAcquire()) {
             System.out.println("ID: " + id + " Permit Acquired");
-        } catch(InterruptedException e) {
+        } else {
             throw new RuntimeException();
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
         }
     }
 
-    public void dequeue() {
+    public void dequeue(int id) {
         // simplified, should check for existence and do cleanup.
         operationSemaphore.release();
+        System.out.println("ID " + id + " Lock Released. Available Permits: " + operationSemaphore.availablePermits());
     }
 
     public void doOperation(int id) {
@@ -37,18 +31,18 @@ public class SemaphoreTest4 {
         } catch (InterruptedException e) {
             throw new RuntimeException();
         } finally {
-            dequeue();
-            System.out.println("ID " + id + " Lock Released. Available Permits: " + operationSemaphore.availablePermits());
+            dequeue(id);
         }
     }
 
-    public synchronized void methodCall(int id) throws InterruptedException {
+    public void methodCall(int id) throws InterruptedException {
+        //CDN Prefix API Purge call
         System.out.println("operation for " + id);
         Thread.sleep(10000);
     }
 
     public static void main(String[] args) {
-        SemaphoreTest4 tq = new SemaphoreTest4();
+        SemaphoreTest5 tq = new SemaphoreTest5();
 
         Thread t1 = new Thread(() -> tq.doOperation(1));
         t1.start();
@@ -85,7 +79,5 @@ public class SemaphoreTest4 {
 
         Thread t12 = new Thread(() -> tq.doOperation(12));
         t12.start();
-
     }
-
 }

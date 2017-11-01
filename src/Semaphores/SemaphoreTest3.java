@@ -1,13 +1,12 @@
-/**
+package Semaphores; /**
  * Created by jmobijoh on 10/19/17.
  */
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-public class SemaphoreTest2 {
+public class SemaphoreTest3 {
 
     private Map<Integer, Semaphore> m = new HashMap<>();
     private Semaphore operationSemaphore = new Semaphore(1);
@@ -26,7 +25,7 @@ public class SemaphoreTest2 {
         }
 
         if (!s.tryAcquire()) {
-            throw new RuntimeException();
+            System.out.println("Cannot acquire Permit");
         }
         System.out.println("Queue Available Permits " + s.availablePermits() + " id: " +id);
     }
@@ -50,7 +49,8 @@ public class SemaphoreTest2 {
         // do operation here ...
         System.out.println("operation for " + id);
         try {
-            Thread.sleep(500);
+            System.out.println("Sleep");
+            Thread.sleep(50000000);
         } catch (InterruptedException e) {
             throw new RuntimeException();
         } finally {
@@ -61,24 +61,24 @@ public class SemaphoreTest2 {
     }
 
     public static void main(String[] args) {
-        SemaphoreTest2 tq = new SemaphoreTest2();
+        SemaphoreTest3 tq = new SemaphoreTest3();
 
         Thread t1 = new Thread(() -> tq.doOperation(1));
         t1.start();
 
-        Thread t2 = new Thread(() -> tq.doOperation(2));
+        Thread t2 = new Thread(() -> tq.doOperation(1));
         t2.start();
 
-        Thread t3 = new Thread(() -> tq.doOperation(3));
+        Thread t3 = new Thread(() -> tq.doOperation(1));
         t3.start();
 
-        Thread t4 = new Thread(() -> tq.doOperation(4));
+        Thread t4 = new Thread(() -> tq.doOperation(1));
         t4.start();
 
-        Thread t5 = new Thread(() -> tq.doOperation(5));
+        Thread t5 = new Thread(() -> tq.doOperation(1));
         t5.start();
 
-        Thread t6 = new Thread(() -> tq.doOperation(6));
+        Thread t6 = new Thread(() -> tq.doOperation(1));
         t6.start();
 
         Thread t7 = new Thread(() -> tq.doOperation(7));
@@ -99,23 +99,6 @@ public class SemaphoreTest2 {
         Thread t12 = new Thread(() -> tq.doOperation(12));
         t12.start();
 
-       /* Thread[] threads = new Thread[]{
-                new Thread(() -> tq.doOperation(1)),
-                new Thread(() -> tq.doOperation(2)),
-                new Thread(() -> tq.doOperation(3)),
-                new Thread(() -> tq.doOperation(1)),
-                new Thread(() -> tq.doOperation(2)),
-                new Thread(() -> tq.doOperation(3)),
-        };
-
-        Arrays.stream(threads).forEach(t -> t.start());*/
-        /*Arrays.stream(threads).forEach(t -> {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });*/
     }
 
 }
