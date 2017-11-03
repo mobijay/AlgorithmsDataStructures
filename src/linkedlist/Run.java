@@ -6,7 +6,8 @@ package LinkedList;
 public class Run {
 
     public static void main(String[] args) {
-        LinkedList myLinkedList = new LinkedList("My first Linked List");
+        LinkedList myLinkedList = new LinkedList();
+        myLinkedList.addNode(new Node("1st Node"));
         myLinkedList.addNode(new Node("2nd Node"));
         myLinkedList.printNodeData();
         System.out.println("Size of Linked List: " + myLinkedList.size());

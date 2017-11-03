@@ -5,16 +5,16 @@ package LinkedList;
  */
 public class LinkedList {
 
-    private Node head;
+    private Node head = null;
     private int size = 0;
-
-    public LinkedList(String data) {
-        this.head = new Node(data);
-        size++;
-    }
 
     public void addNode(Node newNode) {
 
+        if(head == null) {
+            head = newNode;
+            size++;
+            return;
+        }
         Node currentNode = head;
 
         while(currentNode.getNext() != null) {

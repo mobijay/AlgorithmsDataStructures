@@ -7,11 +7,7 @@ import LinkedList.Node;
  * Created by jmobijoh on 11/3/17.
  */
 public class QueueLinkedListImpl {
-    LinkedList linkedList;
-
-    public QueueLinkedListImpl(String data) {
-        linkedList= new LinkedList(data);
-    }
+    LinkedList linkedList = new LinkedList();
 
     public void enqueue (String data) {
         Node newNode = new Node(data);
