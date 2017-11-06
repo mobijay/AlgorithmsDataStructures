@@ -16,7 +16,7 @@ public class Stack {
     }
 
     public int pop() {
-        return integerList.get(top--);
+        return integerList.remove(top--);
     }
 
     public int getTop() {
