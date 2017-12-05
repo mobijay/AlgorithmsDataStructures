@@ -16,6 +16,16 @@ public class RunRecursion {
         //x += 5 *2;
         System.out.println(x);
 
+        int j = 5;
+        System.out.println(j/2);
+
+        String test = "hello";
+        int hash = Math.abs(test.hashCode() % 256);
+
+        int bucketArray[] = new int[256];
+
+        bucketArray[hash] = 10;
+
         Fibonacci fibTest = new Fibonacci();
         int fibNum = fibTest.fib(5);
         System.out.println("Fib: " + fibNum);

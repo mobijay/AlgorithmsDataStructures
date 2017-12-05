@@ -3,7 +3,7 @@ package BinarySearchTree;
 /**
  * Created by jmobijoh on 10/30/17.
  */
-public class BinarySearchTree {
+public final class BinarySearchTree {
 
     Node rootNode = null;
     private static BinarySearchTree uniqueInstance;
